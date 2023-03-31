@@ -28,12 +28,24 @@ module.exports.updateCustomer = async (customerData) => {
   }
 };
 
-module.exports.deleteCustomer= async(customerData)=>{
-    try {
-        let result = await customerDb.delete_Customer(customerData)
-        return result;
-    } catch (error) {
+module.exports.deleteCustomer = async (customerData) => {
+  try {
+    let result = await customerDb.delete_Customer(customerData);
+    return result;
+  } catch (error) {
     console.log(`Got Some errors from service/deleteCustomer: ${error}`);
-        
-    }
-}
+  }
+};
+
+module.exports.getDocumentCustomerInfoByEmailId = async (customer_emailId) => {
+  try {
+    const result = await customerDb.documetCustomerInfoWithCustomer(
+      customer_emailId
+    );
+    return result;
+  } catch (error) {
+    console.log(
+      `Got Some errors from services/getDocumentCustomerInfoByEmaiId: ${error}`
+    );
+  }
+};

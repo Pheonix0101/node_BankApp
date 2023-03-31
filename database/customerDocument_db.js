@@ -1,5 +1,6 @@
 const Customer_document = require("../models/customerDocument");
-const Customer = require('../models/customer');
+const customerDb = require("../models/customer");
+const customerDocumentDb = require("../models/customerDocument");
 
 module.exports.customer_document_create = async (DocumentData) => {
   console.log(DocumentData.body);
@@ -38,4 +39,28 @@ module.exports.getCustomer_document = async () => {
   }
 };
 
+module.exports.getCustomerInfoWithdocument_masterid = async (document_masterId) => {
+  try {
+    customerDb.belongsTo(customerDocumentDb, {
+      targetKey: "customer_id",
+      foreignKey: "customer_id",
+    });
+
+    const result = await customerDb.findAll({
+      include: [
+        {
+          model: customerDocumentDb,
+          where: {
+            document_masterid: document_masterId.body.document_masterid,
+          },
+        },
+      ],
+    });
+    return result;
+  } catch (error) {
+    console.log(
+      `Getting Error from database/getCustomerInfoWithdocument_masterid: ${error}`
+    );
+  }
+};
 

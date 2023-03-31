@@ -1,4 +1,6 @@
 const Customer = require("../models/customer");
+const customerDb = require("../models/customer");
+const customerDocumentDb = require("../models/customerDocument");
 
 module.exports.customer_create = async (customerData) => {
   try {
@@ -93,5 +95,29 @@ module.exports.delete_Customer = async (customerData) => {
     return result;
   } catch (error) {
     console.log(`Getting Error from util/delete_Customer: ${error}`);
+  }
+};
+
+module.exports.documetCustomerInfoWithCustomer = async (customer_emailId) => {
+  try {
+    customerDocumentDb.belongsTo(customerDb, {
+      targetKey: "customer_id",
+      foreignKey: "customer_id",
+    });
+    const result = await customerDocumentDb.findAll({
+      include: [
+        {
+          model: customerDb,
+          where: {
+            emailId: customer_emailId.body.emailId,
+          },
+        },
+      ],
+    });
+    return result;
+  } catch (error) {
+    console.log(
+      `Getting Error from database/documetCustomerInfoWithCustomer: ${error}`
+    );
   }
 };

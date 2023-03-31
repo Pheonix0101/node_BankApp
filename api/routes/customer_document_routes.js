@@ -6,8 +6,8 @@ const router = express.Router();
 
 router.post("/add", customer_documentController.addCustomer_document);
 router.get("/get", customer_documentController.getCustomer_document);
-router.post("/abc", customer_documentController.getCustomerInfo);
-router.post("/doc", customer_documentController.getCustomer_DocumentInfo);
+router.post("/masterId", customer_documentController.getCustomerInfoBydocument_masterId);
+
 
 
 module.exports = router;

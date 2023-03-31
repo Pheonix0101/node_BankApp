@@ -17,3 +17,19 @@ module.exports.getCustomerDocument = async () => {
     console.log(`Got Some errors from service/getCustomerDocument: ${error}`);
   }
 };
+
+module.exports.getCustomerInfoBydocument_masterId = async (
+  document_masterId
+) => {
+  try {
+    const result =
+      await customer_documentDb.getCustomerInfoWithdocument_masterid(
+        document_masterId
+      );
+    return result;
+  } catch (error) {
+    console.log(
+      `Got Some errors from services/getCustomerInfoBydocument_masterId: ${error}`
+    );
+  }
+};

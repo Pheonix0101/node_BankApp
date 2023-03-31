@@ -1,4 +1,4 @@
-const CustomerService = require("../../services/customerService");
+const CustomerService = require("../../services/customer_service");
 
 module.exports.addCustomer = async (req, res) => {
   try {
@@ -69,6 +69,27 @@ module.exports.deleteCustomer = async (req, res) => {
       },
       result,
     });
+  } catch (error) {
+    res.status(500).json({
+      status: { statuscode: 500, statusType: "failure", error: error },
+    });
+  }
+};
+
+module.exports.getCustomer_DocumentInfoByEmailId = async (req, res) => {
+  try {
+    const result = await CustomerService.getDocumentCustomerInfoByEmailId(req);
+
+    res.send({
+      Status: {
+        StatusCode: 200,
+        StatusType: "Success",
+        StatusMessage: "Record Added",
+        StatusSeverity: "Information",
+      },
+      result,
+    });
+    console.log(result);
   } catch (error) {
     res.status(500).json({
       status: { statuscode: 500, statusType: "failure", error: error },
