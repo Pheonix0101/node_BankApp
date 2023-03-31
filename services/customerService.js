@@ -1,8 +1,8 @@
-const customerDb = require("../util/customerToDb");
+const customerDb = require("../database/customer_db");
 
-module.exports.addCustomer = async (data) => {
+module.exports.addCustomer = async (customerData) => {
   try {
-    let result = await customerDb.customer_create(data);
+    let result = await customerDb.customer_create(customerData);
     return result;
   } catch (error) {
     console.log(`Got Some errors from service/addCustomer: ${error}`);
@@ -18,9 +18,9 @@ module.exports.getCustomer = async () => {
   }
 };
 
-module.exports.updateCustomer = async (data) => {
+module.exports.updateCustomer = async (customerData) => {
   try {
-    let result = await customerDb.update_Customer(data);
+    let result = await customerDb.update_Customer(customerData);
     // console.log(result);
     return result;
   } catch (error) {
@@ -28,9 +28,9 @@ module.exports.updateCustomer = async (data) => {
   }
 };
 
-module.exports.deleteCustomer= async(data)=>{
+module.exports.deleteCustomer= async(customerData)=>{
     try {
-        let result = await customerDb.delete_Customer(data)
+        let result = await customerDb.delete_Customer(customerData)
         return result;
     } catch (error) {
     console.log(`Got Some errors from service/deleteCustomer: ${error}`);

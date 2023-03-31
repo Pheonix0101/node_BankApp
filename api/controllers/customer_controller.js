@@ -1,4 +1,4 @@
-const CustomerService = require("../../service/customerService");
+const CustomerService = require("../../services/customerService");
 
 module.exports.addCustomer = async (req, res) => {
   try {

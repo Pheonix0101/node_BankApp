@@ -1,7 +1,6 @@
 const Customer = require("../models/customer");
 
-module.exports.customer_create = async (data) => {
-  //   console.log(req.body);
+module.exports.customer_create = async (customerData) => {
   try {
     const {
       name,
@@ -15,7 +14,7 @@ module.exports.customer_create = async (data) => {
       country,
       zipcode,
       martialStatus,
-    } = data.body;
+    } = customerData.body;
 
     let result = await Customer.create({
       name,
@@ -39,27 +38,27 @@ module.exports.customer_create = async (data) => {
 
 module.exports.get_Customer = async () => {
   try {
-    const CustomerInfo = await Customer.findAll({});
+    const CustomerInfo = await Customer.findAll();
     return CustomerInfo;
   } catch (error) {
     console.log(`Getting Error from util/get_Customer: ${error}`);
   }
 };
 
-module.exports.update_Customer = async (data) => {
+module.exports.update_Customer = async (customerData) => {
   try {
-    const updatedcustomer_id = data.body.customer_id;
-    const updatedname = data.body.name;
-    const updatedphoneNumber = data.body.phoneNumber;
-    const updatedemailId = data.body.emailId;
-    const updateddateOfbirth = data.body.dateOfbirth;
-    const updatedaddress1 = data.body.address1;
-    const updatedaddress2 = data.body.address2;
-    const updatedcity = data.body.city;
-    const updatedstate = data.body.state;
-    const updatedcountry = data.body.country;
-    const updatedzipcode = data.body.zipcode;
-    const updatedmartialStatus = data.body.martialStatus;
+    const updatedcustomer_id = customerData.body.customer_id;
+    const updatedname = customerData.body.name;
+    const updatedphoneNumber = customerData.body.phoneNumber;
+    const updatedemailId = customerData.body.emailId;
+    const updateddateOfbirth = customerData.body.dateOfbirth;
+    const updatedaddress1 = customerData.body.address1;
+    const updatedaddress2 = customerData.body.address2;
+    const updatedcity = customerData.body.city;
+    const updatedstate = customerData.body.state;
+    const updatedcountry = customerData.body.country;
+    const updatedzipcode = customerData.body.zipcode;
+    const updatedmartialStatus = customerData.body.martialStatus;
 
     const result = await Customer.findByPk(updatedcustomer_id).then(
       (customer) => {
@@ -75,8 +74,8 @@ module.exports.update_Customer = async (data) => {
         customer.country = updatedcountry;
         customer.zipcode = updatedzipcode;
         customer.martialStatus = updatedmartialStatus;
-       return customer.save();
-        
+        return customer.save();
+
         //  return result;
       }
     );
@@ -85,17 +84,14 @@ module.exports.update_Customer = async (data) => {
   }
 };
 
-module.exports.delete_Customer = async (data) => {
+module.exports.delete_Customer = async (customerData) => {
   try {
-    const customerId = data.body.customer_id;
-    const result = await Customer.findByPk(customerId)
-    .then((customerData) => {
-      customerData.destroy();
+    const customerId = customerData.body.customer_id;
+    const result = await Customer.findByPk(customerId).then((customer) => {
+      customer.destroy();
     });
     return result;
   } catch (error) {
     console.log(`Getting Error from util/delete_Customer: ${error}`);
   }
 };
-
-
