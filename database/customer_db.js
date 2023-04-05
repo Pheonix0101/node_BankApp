@@ -1,6 +1,6 @@
 const Customer = require("../models/customer");
 const customerDb = require("../models/customer");
-const customerDocumentDb = require("../models/customerDocument");
+const customerDocumentDb = require("../models/customer_document");
 
 module.exports.customer_create = async (customerData) => {
   try {
@@ -77,8 +77,6 @@ module.exports.update_Customer = async (customerData) => {
         customer.zipcode = updatedzipcode;
         customer.martialStatus = updatedmartialStatus;
         return customer.save();
-
-        //  return result;
       }
     );
   } catch (error) {

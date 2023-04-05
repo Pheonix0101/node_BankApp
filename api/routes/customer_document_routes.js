@@ -9,5 +9,4 @@ router.get("/get", customer_documentController.getCustomer_document);
 router.post("/masterId", customer_documentController.getCustomerInfoBydocument_masterId);
 
 
-
 module.exports = router;

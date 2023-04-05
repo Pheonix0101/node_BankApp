@@ -1,4 +1,4 @@
-const customer_documentDb = require("../database/customerDocument_db");
+const customer_documentDb = require("../database/customer_document_db");
 
 module.exports.addCustomer_document = async (data) => {
   try {

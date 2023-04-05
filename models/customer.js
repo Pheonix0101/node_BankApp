@@ -12,7 +12,6 @@ const Customer = sequelize.define("Customer", {
   },
   name: {
     type: Sequelize.STRING,
-
     allowNull: false,
   },
   phoneNumber: {

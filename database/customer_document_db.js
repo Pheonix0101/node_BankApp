@@ -1,6 +1,6 @@
-const Customer_document = require("../models/customerDocument");
+const Customer_document = require("../models/customer_document");
 const customerDb = require("../models/customer");
-const customerDocumentDb = require("../models/customerDocument");
+const customerDocumentDb = require("../models/customer_document");
 
 module.exports.customer_document_create = async (DocumentData) => {
   console.log(DocumentData.body);
@@ -14,7 +14,7 @@ module.exports.customer_document_create = async (DocumentData) => {
       document_referenceId,
       document_description,
     } = DocumentData.body;
-
+    
     let result = await Customer_document.create({
       document_name,
       document_masterid,
@@ -39,7 +39,9 @@ module.exports.getCustomer_document = async () => {
   }
 };
 
-module.exports.getCustomerInfoWithdocument_masterid = async (document_masterId) => {
+module.exports.getCustomerInfoWithdocument_masterid = async (
+  document_masterId
+) => {
   try {
     customerDb.belongsTo(customerDocumentDb, {
       targetKey: "customer_id",
@@ -63,4 +65,3 @@ module.exports.getCustomerInfoWithdocument_masterid = async (document_masterId) 
     );
   }
 };
-
