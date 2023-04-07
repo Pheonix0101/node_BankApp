@@ -1,6 +1,11 @@
 const express = require("express");
 var bodyParser = require("body-parser");
 const sequelize = require("./database/connect_database");
+const fs = require('fs');
+
+const routesInfo = JSON.parse(
+  fs.readFileSync('routes.json').toString()
+);
 
 const app = express();
 const port = 3000;
@@ -21,7 +26,7 @@ app.use(express.json());
 app.use(customerRoutes);
 app.use("/document", customer_document_routes);
 app.use("/master", document_master_routes);
-app.use("/branch",branch_routes);
+app.use(routesInfo.API,branch_routes);
 
 //// ******************
 

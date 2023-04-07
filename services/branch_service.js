@@ -1,31 +1,87 @@
+const { fileNanme, logger } = require('../log4');
 const branchDb = require("../database/branch_db");
 const Branch = require("../models/branch");
 
-module.exports.addBranch = async (branchData) => {
+var fname;
+
+fileNanme(__filename).then((data) => {
+  fname = data;
+});
+
+exports.getBranches = async (data) => {
   try {
-    let result = await branchDb.create_branch(branchData);
+    logger.info(`file: ${fname} getBranches is called`);
+    let result = await branchDb.getBranchesRepo();
+    console.log(result);
     return result;
-  } catch (error) {
-    console.log(`Got Some errors from service/addCustomer_document: ${error}`);
+  } catch (err) {
+    logger.fatal(`file: ${fname},error: ${err}`);
+    console.log(err);
   }
 };
 
-module.exports.getBranch = async () => {
+exports.getBranchById = async (data) => {
   try {
-    let result = await branchDb.getBranch();
+    logger.info(`file: ${fname} getBranchById is called`);
+    let result = await branchDb.getBranchById(data);
     return result;
-  } catch (error) {
-    console.log(`Got Some errors from service/getBranch: ${error}`);
+  } catch (err) {
+    logger.fatal(`file: ${fname},error: ${err}`);
+    console.log(err);
   }
 };
 
-
-module.exports.Update_branch = async(BranchData)=>{
+exports.addNewBranch = async (data) => {
   try {
-    let result = await branchDb.update_branch(BranchData);
+    logger.info(`file: ${fname} addNewBranch is called`);
+    let result = await branchDb.addNewBranch(data);
     return result;
-  } catch (error) {
-    console.log(`Got Some errors from service/Update_branch: ${error}`);
-    
+  } catch (err) {
+    console.log(err);
+    logger.fatal(`file: ${fname},error: ${err}`);
   }
-}
+};
+
+exports.deleteBranchById = async (data) => {
+  try {
+    logger.info(`file: ${fname} deleteBranchById is called`);
+    let result = await branchDb.deleteBranchById(data);
+    return result;
+  } catch (err) {
+    logger.fatal(`file: ${fname},error: ${err}`);
+    console.log(err);
+  }
+};
+
+exports.updateBranch = async (data) => {
+  try {
+    logger.info(`file: ${fname} updateBranch is called`);
+    let result = await branchDb.updateBranch(data);
+    return result;
+  } catch (err) {
+    console.log(err);
+    logger.fatal(`file: ${fname},error: ${err}`);
+  }
+};
+
+/*exports.branchFilter = async (data) => {
+  try {
+    logger.info(`file: ${fname} branchFilter is called`);
+    let result = await branchDb.branchFilter(data);
+    return result;
+  } catch (err) {
+    console.log(err);
+    logger.fatal(`file: ${fname},error: ${err}`);
+  }
+};*/
+
+exports.getBranchNameById = async (data) => {
+  try {
+    logger.info(`file: ${fname} getBranchNameById is called`);
+    let result = await branchDb.getBranchNameById(data);
+    return result;
+  } catch (err) {
+    console.log(err);
+    logger.fatal(`file: ${fname},error: ${err}`);
+  }
+};

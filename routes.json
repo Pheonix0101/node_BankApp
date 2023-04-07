@@ -1,0 +1,10 @@
+{
+  "API": "/bank",
+  "GetBranches": "/branches",
+  "GetBranchById": "/branches/branch",
+  "AddNewBranch": "/branches/add",
+  "DeleteBranchById": "/branches/delete",
+  "UpdateBranch": "/branches/update",
+  "BranchFilter": "branches/filter",
+  "GetBranchNameById": "/branches/name"
+}
