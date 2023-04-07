@@ -23,19 +23,6 @@ module.exports.addNewBranch = async (branchData) => {
       zipcode,
     } = branchData.body;
 
-    if (
-      !branch_id ||
-      !branch_name ||
-      !ifsc_code ||
-      !address ||
-      !city ||
-      !state ||
-      !country ||
-      !zipcode
-    ) {
-      return;
-    }
-
     let result = await branch.create({
       branch_id,
       branch_name,
@@ -70,9 +57,6 @@ module.exports.getBranchesRepo = async () => {
 module.exports.getBranchById = async (data) => {
   try {
     let branchId = data.body.branch_id;
-    if (!branchId) {
-      return;
-    }
 
     logger.info(`file: ${fname} getBranchById is called`);
     const result = await branch.findByPk(branchId);
@@ -89,9 +73,6 @@ module.exports.getBranchById = async (data) => {
 module.exports.deleteBranchById = async (data) => {
   try {
     let branchId = data.body.branch_id;
-    if (!branchId) {
-      return;
-    }
 
     logger.info(`file: ${fname} deleteBranchById is called`);
     /*const result = await branch.findByPk(branchId).then((branch) => {
@@ -242,9 +223,6 @@ exports.branchFilter = async (data) => {
 module.exports.getBranchNameById = async (data) => {
   try {
     let branchId = data.body.branch_id;
-    if (!branchId) {
-      return;
-    }
 
     logger.info(`file: ${fname} getBranchNameById is called`);
     const result = await branch.findByPk(branchId);
