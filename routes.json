@@ -5,6 +5,6 @@
   "AddNewBranch": "/branches/add",
   "DeleteBranchById": "/branches/delete",
   "UpdateBranch": "/branches/update",
-  "BranchFilter": "branches/filter",
+  "BranchFilter": "/branches/filter",
   "GetBranchNameById": "/branches/name"
 }

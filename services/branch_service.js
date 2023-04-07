@@ -64,7 +64,7 @@ exports.updateBranch = async (data) => {
   }
 };
 
-/*exports.branchFilter = async (data) => {
+exports.branchFilter = async (data) => {
   try {
     logger.info(`file: ${fname} branchFilter is called`);
     let result = await branchDb.branchFilter(data);
@@ -73,7 +73,7 @@ exports.updateBranch = async (data) => {
     console.log(err);
     logger.fatal(`file: ${fname},error: ${err}`);
   }
-};*/
+};
 
 exports.getBranchNameById = async (data) => {
   try {
