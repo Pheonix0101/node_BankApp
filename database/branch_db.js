@@ -58,6 +58,10 @@ module.exports.getBranchesRepo = async () => {
 module.exports.getBranchById = async (data) => {
   try {
     let branchId = data.body.branch_id;
+    
+    if (!branchId) {
+      return;
+    }
 
     logger.info(`file: ${fname} getBranchById is called`);
     const result = await branch.findByPk(branchId);
@@ -74,6 +78,9 @@ module.exports.getBranchById = async (data) => {
 module.exports.deleteBranchById = async (data) => {
   try {
     let branchId = data.body.branch_id;
+    if (!branchId) {
+      return;
+    }
 
     logger.info(`file: ${fname} deleteBranchById is called`);
     /*const result = await branch.findByPk(branchId).then((branch) => {
@@ -94,8 +101,7 @@ module.exports.deleteBranchById = async (data) => {
 };
 
 module.exports.updateBranch = async (data) => {
-  try {
-    let branchId = data.body.branch_id;
+  try {    
     let branchName = data.body.branch_name;
     let ifscCode = data.body.ifsc_code;
     let address = data.body.address;
@@ -169,41 +175,42 @@ module.exports.updateBranch = async (data) => {
 
 module.exports.branchFilter = async (data) => {
   try {
+    let branchId = data.body.branch_id || "";
     let branchName = data.body.branch_name || "";
     let ifscCode = data.body.ifsc_code || "";
     let address = data.body.address || "";
     let city = data.body.city || "";
     let state = data.body.state || "";
     let country = data.body.country || "";
-    let zipCode = data.body.zipcode || 0;
+    let zipCode = data.body.zipcode || "";
 
     const result = await branch.findAll({
       where: {
         branch_name: {
-          [Op.like]: `%${branchName}%`,
+          [Op.like]: `%${branchName}%`
         },
         ifsc_code: {
-          [Op.like]: `%${ifscCode}%`,
+          [Op.like]: `%${ifscCode}%`
         },
         address: {
-          [Op.like]: `%${address}%`,
+          [Op.like]: `%${address}%`
         },
         city: {
-          [Op.like]: `%${city}%`,
+          [Op.like]: `%${city}%`
         },
         state: {
-          [Op.like]: `%${state}%`,
+          [Op.like]: `%${state}%`
         },
         country: {
-          [Op.like]: `%${country}%`,
+          [Op.like]: `%${country}%`
         },
         zipcode: {
-          [Op.like]: `%${zipCode}%`,
+          [Op.like]: `%${zipCode}%`
         },
         branch_id: {
-          [Op.ne]: 0,
-        },
-      },
+          [Op.like]: `%${branchId}%`
+        }
+      }
     });
     return result;
   } catch (err) {
@@ -217,6 +224,10 @@ module.exports.branchFilter = async (data) => {
 module.exports.getBranchNameById = async (data) => {
   try {
     let branchId = data.body.branch_id;
+
+    if (!branchId) {
+      return;
+    }
 
     logger.info(`file: ${fname} getBranchNameById is called`);
     const result = await branch.findByPk(branchId);
