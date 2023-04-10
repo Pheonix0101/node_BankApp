@@ -6,5 +6,13 @@
   "DeleteBranchById": "/branches/delete",
   "UpdateBranch": "/branches/update",
   "BranchFilter": "/branches/filter",
-  "GetBranchNameById": "/branches/name"
+  "GetBranchNameById": "/branches/name",
+  "GetUsers": "/users",
+  "GetUserById": "/users/user",
+  "AddNewUser": "/users/add",
+  "DeleteUserById": "/users/delete",
+  "UpdateUser": "/users/update",
+  "UserFilter": "/users/filter",
+  "GetUserNameById": "/users/name",
+  "GetUsersByBranchId": "/users/branch"
 }
