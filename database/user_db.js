@@ -1,5 +1,7 @@
 const { fileNanme, logger } = require('../log4');
 const user = require('../models/user');
+const user_role = require('../models/user_role');
+const role = require('../models/role');
 const sequelize = require('../database/connect_database');
 const { Op } = require('sequelize');
 
@@ -9,14 +11,33 @@ fileNanme(__filename).then((data) => {
   fname = data;
 });
 
+module.exports.getAllUserRoles = async () => {
+  try {
+    logger.info(`file: ${fname} getAllUserRoles is called`);
+    const result = await user_role.findAll();
+    return result;
+  } catch (err) {
+    console.log(err, 'err from getAllUserRoles');
+    logger.fatal(`file: ${fname},error: ${err}`);
+  } finally {
+  }
+};
+
 module.exports.addNewUser = async (userData) => {
   try {
     logger.info(`file: ${fname} addNewUser is called`);
 
-    const { user_id, user_name, email, password, phonenumber, branch_id } =
-      userData.body;
+    const {
+      user_id,
+      user_name,
+      email,
+      password,
+      phonenumber,
+      branch_id,
+      role_name,
+    } = userData.body;
 
-    let result = await user.create({
+    let User = await user.create({
       user_id,
       user_name,
       email,
@@ -24,7 +45,21 @@ module.exports.addNewUser = async (userData) => {
       phonenumber,
       branch_id,
     });
-    return result;
+
+    const Role = await role.findOne({
+      where: {
+        role_name: role_name,
+      },
+    });
+
+    const role_id = Role.role_id;
+
+    await user_role.create({
+      role_id,
+      user_id,
+    });
+
+    return User;
   } catch (error) {
     console.log(
       `There is an Error from function database/create_user: ${error}`
@@ -77,10 +112,16 @@ module.exports.deleteUserById = async (data) => {
       user.destroy();
     });*/
 
-    const result = await user.findByPk(userId);
-    if (result) {
-      result.destroy();
-      return result;
+    const UserRole = await user_role.destroy({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    const User = await user.findByPk(userId);
+    if (User) {
+      User.destroy();
+      return User;
     }
   } catch (err) {
     console.log('error from deleteUserById', err);
@@ -97,6 +138,7 @@ module.exports.updateUser = async (data) => {
     let password = data.body.password;
     let phonenumber = data.body.phonenumber;
     let branchId = data.body.branch_id;
+    let roleName = data.body.role_name;
 
     if (!userId) {
       return;
@@ -104,12 +146,12 @@ module.exports.updateUser = async (data) => {
 
     logger.info(`file: ${fname} updateUser is called`);
 
-    const result = await user.update(
+    const User = await user.update(
       {
         user_name: userName,
         email: email,
         password: password,
-        phonenumber: phonenumber,        
+        phonenumber: phonenumber,
         branch_id: branchId,
       },
       {
@@ -118,7 +160,29 @@ module.exports.updateUser = async (data) => {
         },
       }
     );
-    return result;
+
+    if (roleName) {
+      const Role = await role.findOne({
+        where: {
+          role_name: roleName,
+        },
+      });
+
+      const role_id = Role.role_id;
+
+      await user_role.update(
+        {
+          role_id: role_id,
+        },
+        {
+          where: {
+            user_id: userId,
+          },
+        }
+      );
+    }
+
+    return User;
   } catch (err) {
     console.log(err, 'err from updateUser');
     logger.fatal(`file: ${fname},error: ${err}`);
@@ -134,7 +198,7 @@ module.exports.userFilter = async (data) => {
     let password = data.body.password || '';
     let phonenumber = data.body.phonenumber || '';
     let branchId = data.body.branch_id || '';
-console.log(phonenumber);
+
     const result = await user.findAll({
       where: {
         user_name: {

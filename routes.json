@@ -14,5 +14,14 @@
   "UpdateUser": "/users/update",
   "UserFilter": "/users/filter",
   "GetUserNameById": "/users/name",
-  "GetUsersByBranchId": "/users/branch"
+  "GetUsersByBranchId": "/users/branch",
+  "GetRoles": "/roles",
+  "GetRoleById": "/roles/role",
+  "AddNewRole": "/roles/add",
+  "DeleteRoleById": "/roles/delete",
+  "UpdateRole": "/roles/update",
+  "RoleFilter": "/roles/filter",
+  "GetRoleNameById": "/roles/name",
+  "GetAllUserRoles": "/userroles"
 }
+

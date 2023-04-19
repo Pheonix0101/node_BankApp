@@ -14,7 +14,8 @@ const {
   updateUser,
   userFilter,
   getUserNameById,
-  getUsersByBranchId
+  getUsersByBranchId,
+  getAllUserRoles
 } = require('../controllers/user_controller');
 
 router.get(routesInfo.GetUsers, getUsers);
@@ -26,5 +27,6 @@ router.patch(routesInfo.UpdateUser, updateUser);
 router.post(routesInfo.UserFilter, userFilter);
 router.post(routesInfo.GetUserNameById, getUserNameById);
 router.post(routesInfo.GetUsersByBranchId, getUsersByBranchId);
+router.get(routesInfo.GetAllUserRoles, getAllUserRoles);
 
 module.exports = router;

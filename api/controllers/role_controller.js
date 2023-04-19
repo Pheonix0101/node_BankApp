@@ -1,5 +1,5 @@
 const { fileNanme, logger } = require('../../log4.js');
-const UserServices = require('../../services/user_service');
+const RoleServices = require('../../services/role_service.js');
 
 var fname;
 
@@ -7,10 +7,10 @@ fileNanme(__filename).then((data) => {
   fname = data;
 });
 
-const getUsers = async (req, res) => {
+const getRoles = async (req, res) => {
   try {
-    logger.info(`file: ${fname} getUsers is called`);
-    let result = await UserServices.getUsers(req);
+    logger.info(`file: ${fname} getRoles is called`);
+    let result = await RoleServices.getRoles(req);
     res.send({
       Status: {
         StatusCode: 200,
@@ -28,10 +28,10 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+const getRoleById = async (req, res) => {
   try {
-    logger.info(`file: ${fname} getUserById is called`);
-    let result = await UserServices.getUserById(req);
+    logger.info(`file: ${fname} getRoleById is called`);
+    let result = await RoleServices.getRoleById(req);
     res.send({
       Status: {
         StatusCode: 200,
@@ -49,10 +49,10 @@ const getUserById = async (req, res) => {
   }
 };
 
-const addNewUser = async (req, res) => {
+const addNewRole = async (req, res) => {
   try {
-    logger.info(`file: ${fname} addNewUser is called`);
-    let result = await UserServices.addNewUser(req);
+    logger.info(`file: ${fname} addNewRole is called`);
+    let result = await RoleServices.addNewRole(req);
 
     res.send({
       Status: {
@@ -71,10 +71,10 @@ const addNewUser = async (req, res) => {
   }
 };
 
-const deleteUserById = async (req, res) => {
+const deleteRoleById = async (req, res) => {
   try {
-    logger.info(`file: ${fname} deleteUserById is called`);
-    let result = await UserServices.deleteUserById(req);
+    logger.info(`file: ${fname} deleteRoleById is called`);
+    let result = await RoleServices.deleteRoleById(req);
     res.send({
       Status: {
         StatusCode: 200,
@@ -92,10 +92,10 @@ const deleteUserById = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const updateRole = async (req, res) => {
   try {
-    logger.info(`file: ${fname} updateUser is called`);
-    let result = await UserServices.updateUser(req);
+    logger.info(`file: ${fname} updateRole is called`);
+    let result = await RoleServices.updateRole(req);
     res.send({
       Status: {
         StatusCode: 200,
@@ -113,10 +113,10 @@ const updateUser = async (req, res) => {
   }
 };
 
-const userFilter = async (req, res) => {
+const roleFilter = async (req, res) => {
   try {
-    logger.info(`file: ${fname} userFilter is called`);
-    let result = await UserServices.userFilter(req);
+    logger.info(`file: ${fname} roleFilter is called`);
+    let result = await RoleServices.roleFilter(req);
     if (result != undefined) {
       res.send({
         Status: {
@@ -128,7 +128,7 @@ const userFilter = async (req, res) => {
         result,
       });
     } else {
-      err = 'no result from user repo';
+      err = 'no result from role repo';
       throw err;
     }
   } catch (err) {
@@ -139,52 +139,10 @@ const userFilter = async (req, res) => {
   }
 };
 
-const getUserNameById = async (req, res) => {
+const getRoleNameById = async (req, res) => {
   try {
-    logger.info(`file: ${fname} getUserNameById is called`);
-    let result = await UserServices.getUserNameById(req);
-    res.send({
-      Status: {
-        StatusCode: 200,
-        StatusType: 'Success',
-        StatusMessage: 'Records found',
-        StatusSeverity: 'Information',
-      },
-      result,
-    });
-  } catch (err) {
-    logger.fatal(`file: ${fname},error: ${err}`);
-    res
-      .status(500)
-      .json({ status: { statuscode: 500, statusType: 'failure', error: err } });
-  }
-};
-
-const getUsersByBranchId = async (req, res) => {
-  try {
-    logger.info(`file: ${fname} getUsersByBranchId is called`);
-    let result = await UserServices.getUsersByBranchId(req);
-    res.send({
-      Status: {
-        StatusCode: 200,
-        StatusType: 'Success',
-        StatusMessage: 'Records found',
-        StatusSeverity: 'Information',
-      },
-      result,
-    });
-  } catch (err) {
-    logger.fatal(`file: ${fname},error: ${err}`);
-    res
-      .status(500)
-      .json({ status: { statuscode: 500, statusType: 'failure', error: err } });
-  }
-};
-
-const getAllUserRoles = async (req, res) => {
-  try {
-    logger.info(`file: ${fname} getAllUserRoles is called`);
-    let result = await UserServices.getAllUserRoles(req);
+    logger.info(`file: ${fname} getRoleNameById is called`);
+    let result = await RoleServices.getRoleNameById(req);
     res.send({
       Status: {
         StatusCode: 200,
@@ -203,13 +161,11 @@ const getAllUserRoles = async (req, res) => {
 };
 
 module.exports = {
-  getUsers,
-  getUserById,
-  addNewUser,
-  deleteUserById,
-  updateUser,
-  userFilter,
-  getUserNameById,
-  getUsersByBranchId,
-  getAllUserRoles
+  getRoles,
+  getRoleById,
+  addNewRole,
+  deleteRoleById,
+  updateRole,
+  roleFilter,
+  getRoleNameById,
 };

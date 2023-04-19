@@ -96,3 +96,15 @@ exports.getUsersByBranchId = async (data) => {
     logger.fatal(`file: ${fname},error: ${err}`);
   }
 };
+
+exports.getAllUserRoles = async (data) => {
+  try {
+    logger.info(`file: ${fname} getAllUserRoles is called`);
+    let result = await userDb.getAllUserRoles();
+    console.log(result);
+    return result;
+  } catch (err) {
+    logger.fatal(`file: ${fname},error: ${err}`);
+    console.log(err);
+  }
+};

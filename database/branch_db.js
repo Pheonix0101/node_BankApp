@@ -12,28 +12,26 @@ fileNanme(__filename).then((data) => {
 module.exports.addNewBranch = async (branchData) => {
   try {
     logger.info(`file: ${fname} addNewBranch is called`);
+    
+    let branchName = data.body.branch_name;
+    let ifscCode = data.body.ifsc_code;
+    let address = data.body.address;
+    let city = data.body.city;
+    let state = data.body.state;
+    let country = data.body.country;
+    let zipCode = data.body.zipcode;
 
-    const {
-      branch_id,
-      branch_name,
-      ifsc_code,
-      address,
-      city,
-      state,
-      country,
-      zipcode,
-    } = branchData.body;
-
-    let result = await branch.create({
-      branch_id,
-      branch_name,
-      ifsc_code,
-      address,
-      city,
-      state,
-      country,
-      zipcode,
+     let result = await branch.create({
+      branch_id: branchId,
+      branch_name: branchName,
+      ifsc_code: ifscCode,
+      address: address,
+      city: city,
+      state: state,
+      country: country,
+      zipcode: zipCode,
     });
+    
     return result;
   } catch (error) {
     console.log(

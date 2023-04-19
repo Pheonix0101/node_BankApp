@@ -19,6 +19,7 @@ const customer_document_routes = require("./api/routes/customer_document_routes"
 const document_master_routes = require("./api/routes/document_master_routes");
 const branch_routes = require("./api/routes/branch_routes");
 const user_routes = require("./api/routes/user_routes");
+const role_routes = require("./api/routes/role_routes");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use("/document", customer_document_routes);
 app.use("/master", document_master_routes);
 app.use(routesInfo.API,branch_routes);
 app.use(routesInfo.API,user_routes);
+app.use(routesInfo.API,role_routes);
 
 //// ******************
 
